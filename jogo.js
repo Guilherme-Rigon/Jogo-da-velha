@@ -4,6 +4,7 @@ var lock;
 var cel = new Array('a','b','c','d','e','f','g','h','i');
 var fechou = [];
 var o = 0;
+//var SuaMarca="";
 //var v = 0;
 //ConexÃ£o Online
 //var socket = io();
