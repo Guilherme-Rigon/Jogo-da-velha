@@ -44,7 +44,6 @@ function Jogo(id){
 		}
 	}
 	verificaFechou(lock);
-	online(id);
 	//v++; //Variavel que conta o nÃƒÆ’Ã‚Âºmero de jogadas, caso seja 81 ÃƒÆ’Ã‚Â© velha (declarada como global acima e comentada);
 	// argCel = "";
 }
@@ -124,9 +123,4 @@ function argNum(argLetra){
 			return i+1;
 		}
 	}
-}
-function online(id){
-        var socket = io();
-        src = document.getElementById(id).src;
-        socket.emit('jogada', {id:id, vez:SuaVez});
 }
