@@ -1,0 +1,35 @@
+#big_house{
+	width:600px;
+	height:600px;
+}
+.casas_menores{
+	width:65px;
+	height:65px;
+}
+.casas_maiores{
+	width:200px;
+	height:200px;	
+}
+body{
+	background-color:grey;
+}
+table{
+	border-collapse: collapse;
+}
+.linha1{
+	border-bottom: solid 10px black;
+}
+.linha2{
+	border-bottom: solid 10px black;
+}
+.coluna1{
+	border-left: solid 10px black;
+	border-right: solid 10px black;
+}
+.coluna2{
+	border-left: solid 10px black;
+	border-right: solid 10px black;
+}.coluna3{
+	border-left: solid 10px black;
+	border-right: solid 10px black;
+}
