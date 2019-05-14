@@ -44,6 +44,7 @@ function Jogo(id){
 		}
 	}
 	verificaFechou(lock);
+	online(id);
 	//v++; //Variavel que conta o nÃƒÆ’Ã‚Âºmero de jogadas, caso seja 81 ÃƒÆ’Ã‚Â© velha (declarada como global acima e comentada);
 	// argCel = "";
 }
