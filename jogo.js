@@ -124,3 +124,8 @@ function argNum(argLetra){
 		}
 	}
 }
+function online(id){
+        var socket = io();
+        src = document.getElementById(id).src;
+        socket.emit('jogada', {id:id, vez:SuaVez});
+}
