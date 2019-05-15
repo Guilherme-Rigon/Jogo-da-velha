@@ -13,6 +13,7 @@ function Jogo(id){
 	if(id[0] == lock || argCel == ""){
 		argCel = id[0];
 		lock = lockCels(id);
+		alert(id);
 		var img=Troca(id);
 		if(img=="Vazio.png"){
 			document.getElementById(id).src="https://kadkest-projeto.000webhostapp.com/kadkest/img/"+SuaVez+".png";
