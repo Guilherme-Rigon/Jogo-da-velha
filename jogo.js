@@ -8,7 +8,7 @@ var o = 0;
 //var v = 0;
 //ConexÃ£o Online
 //var socket = io();
-
+// hahahhaha
 function Jogo(id){
 	if(id[0] == lock || argCel == ""){
 		argCel = id[0];
