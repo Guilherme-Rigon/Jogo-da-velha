@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>Jogo da Velha</title>
+    	<meta charset="utf-8">
+    	<link rel="shortcut icon" href="https://kadkest-projeto.000webhostapp.com/kadkest/img/V.png">
+    	<meta name="viewport" content="width=device-width, user-scalable=no">
+    	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Guilherme-Rigon/Jogo-da-velha@master/estilo.css" />
+    	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Guilherme-Rigon/Jogo-da-velha@master/jogo.js"></script>
+    	<script type="text/javascript" src="https://static.tumblr.com/qoonpff/zLmprgl9v/jquery-3.1.1.min.js"></script>
+    	<script type="text/javascript">
+    		// Função que replica 1 célula do jogo em 81
+    		$(function() {
+    			
+    			celula = ''; // string que vai concatenar as células
+    			linha = ''; // string para concatenar os códigos das linhas
+    			aidi = "linha"; // id onde está a célula que será replicada
+    			idi = "casa_menor"; // id nde está a linha que será replicada
+    			letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']; // array que contém cada letra de cada quadrante
+    
+    			for (j = 1; j < 10; j++) { // repetição que montará todos os quadrantes
+    				if (j==1) { // se for a primeira vez repetindo, ele fará a primeira linha com 3 células
+    					for (var i = 0; i < 3; i++){ // repetição que monta a linha com a única célula
+    						celula += document.getElementById(aidi).innerHTML; // concatenação da célula para formação da linha
+    					}
+    					document.getElementById(aidi).innerHTML = celula; // sobreposição das 3 células na primiera linha
+    					for (var i = 0; i < 3; i++){ // repetição que monta as 3 linhas dentro do primeiro quadrante
+    						linha += document.getElementById(idi+j).innerHTML; // concatenação das 3 células formando as 3 linhas 
+    					}
+    					document.getElementById(idi+j).innerHTML = linha; // sobreposição das 3 linhas
+    				}else{
+    					// depois do primeiro quadrante ele começa a fazer as 3 linhas em cada quadrante
+    					linha += document.getElementById(idi+1).innerHTML; // concatenação das linhas para formação do quadrante completo
+    					document.getElementById(idi+j).innerHTML = linha; // sobreposição das 3 linhas em cada quadrante
+    				}
+    				linha = ''; // limpando a variável para que continue sendo concatenada
+    			}
+    			// parte que dará todos os id's corretos para cada célula
+    			for (j = 0; j < 9; j++) { // repetição que controla a letra
+    				for (i = 1; i < 10; i++) { // repetição que controla o número da célula
+    					document.getElementById('a').id = letras[j]+i; // troca dos id's para o correto
+    				}
+    			}
+    		});
+            SuaMarca = "";
+            argCel = null;
+            //alert("x"); 
+        </script>
+    </head>
+    <body bgproperties="fixed">
+        <h4 id="Layer">Escolha sua marca</h4>
+        <img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/O.png" id="O" class="casas_menores" onclick="escolherVez(this.id)">
+        <img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/X.png" id="X" class="casas_menores" onclick="escolherVez(this.id)">
+    	<table class="Tabuleiro" align="Center">
+    		<tbody id="">
+    			<tr class="linha1">
+    				<td>
+    					<div>
+    						<table>
+    							<tbody id="casa_menor1">
+    								<tr id="linha">
+    									<td><img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/Vazio.png" id="a" class="casas_menores" onclick="if(SuaMarca == SuaVez){socketJ(this.id); Jogo(this.id);}"></td>
+    								</tr>
+    							</tbody>
+    						</table>
+    					</div>
+    				</td>
+    				<td class="coluna1">
+    					<table>
+    						<tbody id="casa_menor2">
+    							
+    						</tbody>
+    					</table>
+    				</td>
+    				<td>
+    					<table>
+    						<tbody id="casa_menor3">
+    							
+    						</tbody>
+    					</table>
+    				</td>
+    			</tr>
+    			<tr class="linha2">
+    				<td>
+    					<table>
+    						<tbody id="casa_menor4">
+    							
+    						</tbody>
+    					</table>
+    				</td>
+    				<td class="coluna2">
+    					<table>
+    						<tbody id="casa_menor5">
+    							
+    						</tbody>
+    					</table>
+    				</td>
+    				<td>
+    					<table>
+    						<tbody id="casa_menor6">
+    							
+    						</tbody>
+    					</table>
+    				</td>
+    			</tr>
+    			<tr class="linha3">
+    				<td>
+    					<table>
+    						<tbody id="casa_menor7">
+    							
+    						</tbody>
+    					</table>
+    				</td>
+    				<td class="coluna3">
+    					<table>
+    						<tbody id="casa_menor8">
+    							
+    						</tbody>
+    					</table>
+    				</td>
+    				<td>
+    					<table>
+    						<tbody id="casa_menor9">
+    							
+    						</tbody>
+    					</table>
+    				</td>
+    			</tr>
+    		</tbody>
+    	</table>
+    </body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        var socket = io(); //Instancia do socket.io front end;
+        var adversario = "";
+        function socketJ(id){ //Despara o socket.io e suas dependências;
+            //src = document.getElementById(id).src; //Linha semi inutil;
+            socket.emit('jogada', {id:id, socketId:adversario}); //Cria um evento no socket, despara e envia um valor;
+            //argCel = "";
+        }
+        function renderTable(jogadas){ //Renderiza todas as jogadas já feitas; Manter função por enquanto;
+            //var x = SuaVez;
+            //alert(jogadas);
+            //SuaVez = "O";
+            //for(jogada of jogadas){
+                Jogo(jogadas);
+            //}
+        }
+        function escolherVez(id){
+            SuaMarca = id;
+            argCel = "";
+            socket.emit('escolheVez', {id:id, socketId:adversario});
+            var node = document.getElementById(id);
+            var node1 = document.getElementById('Layer');
+            if (node.parentNode) {
+              node.parentNode.removeChild(node);
+              node1.parentNode.removeChild(node1);
+            }
+        }
+        socket.on('jogadasFeitas', function(jogadas){ //Callback do broadcast;
+            renderTable(jogadas);
+        });
+        socket.on('Vez', function(id){
+            var node = document.getElementById(id);
+            if (node.parentNode) {
+                node.parentNode.removeChild(node);
+            }
+        });
+        socket.on('pareamento', function(socketAdversario){
+            if(adversario == "" || adversario == null){ //Pensar se isso realmente está certo;
+                socket.emit('pareamentoACK', socket.id, socketAdversario);
+            }
+            adversario = socketAdversario;
+        });
+    </script>
+    <input type="button" onclick="alert(adversario);">
+</html>
+
