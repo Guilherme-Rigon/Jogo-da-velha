@@ -1,13 +1,13 @@
 var SuaVez="O";
 var argCel = "";
-var lock = "";
+var lock;
 var cel = new Array('a','b','c','d','e','f','g','h','i');
 var fechou = [];
 var o = 0;
-//var SuaMarca="";
 //var v = 0;
-//ConexÃ£o Online
+//Conexão Online
 //var socket = io();
+
 function Jogo(id){
 	if(id[0] == lock || argCel == ""){
 		argCel = id[0];
@@ -19,7 +19,7 @@ function Jogo(id){
 				document.getElementById('casa_menor'+argNum(argCel)).innerHTML = "<tr id='linha'><td><img src='https://kadkest-projeto.000webhostapp.com/kadkest/img/"+SuaVez+".png' id='x"+argNum(id[0])+"' class='casas_maiores'></td></tr>";
 				guardaFechou();
 				if(Eonara("x")){
-					//Bloco que serÃƒÆ’Ã‚Â¡ desparado quando houver vitÃƒÆ’Ã‚Â³ria sendo SuaVez o vencedor;
+					//Bloco que serÃƒÂ¡ desparado quando houver vitÃƒÂ³ria sendo SuaVez o vencedor;
 					alert(SuaVez+" Ganhou!!!");
 				}
 			}else if(Velha()){
@@ -32,7 +32,7 @@ function Jogo(id){
 				}catch(e){
 					//
 				}
-				/*if(v == 81){ //Teoricamente menos processamento (nÃƒÆ’Ã‚Â£o testada);
+				/*if(v == 81){ //Teoricamente menos processamento (nÃƒÂ£o testada);
 					alert("Velha");
 				}*/
 			}
@@ -44,7 +44,7 @@ function Jogo(id){
 		}
 	}
 	verificaFechou(lock);
-	//v++; //Variavel que conta o nÃƒÆ’Ã‚Âºmero de jogadas, caso seja 81 ÃƒÆ’Ã‚Â© velha (declarada como global acima e comentada);
+	//v++; //Variavel que conta o nÃƒÂºmero de jogadas, caso seja 81 ÃƒÂ© velha (declarada como global acima e comentada);
 	// argCel = "";
 }
 function Troca(id){
@@ -60,17 +60,17 @@ function verificaFechou(lock){
 
 	for(var y = 0; y<fechou.length;y++){
 		if(lock == fechou[y] ){
-			argCel = ""; // libera o jogo caso uma casa jÃƒÆ’Ã‚Â¡ tenha sido fechada
+			argCel = ""; // libera o jogo caso uma casa jÃƒÂ¡ tenha sido fechada
 		}
 	}
 }
 function Eonara(argQuad = argCel){ // Para reutilizar a Eonara deve se primeiro setar o argCel com a letra do quadrante a ser verificado;
-	var c; var r = c = 1; // C --> Contador e R --> RazÃƒÆ’Ã‚Â£o para o if;
-	p = 3; // O quanto o J se deslocarÃƒÆ’Ã‚Â¡ para se posicionar na casa correta;
+	var c; var r = c = 1; // C --> Contador e R --> RazÃƒÂ£o para o if;
+	p = 3; // O quanto o J se deslocarÃƒÂ¡ para se posicionar na casa correta;
 	q = 8; // O quanto as primeiras casas se deslocam umas das outras;
 	var x = [];
 
-	for(var j=1; j<=9; j++){ //Onde serÃƒÆ’Ã‚Â¡ construido o vetor com os ids das casas de cada jogo;
+	for(var j=1; j<=9; j++){ //Onde serÃƒÂ¡ construido o vetor com os ids das casas de cada jogo;
 		x[j-1] = argQuad+""+j.toString();
 	}
 
@@ -94,7 +94,7 @@ function Eonara(argQuad = argCel){ // Para reutilizar a Eonara deve se primeiro 
 					return true;
 				}
 			}catch(e){
-				//Caso necessite do tratamento do erro, o parametro recebido --> e <-- ÃƒÆ’Ã‚Â© o objeto da exception;
+				//Caso necessite do tratamento do erro, o parametro recebido --> e <-- ÃƒÂ© o objeto da exception;
 			}
 			c++;
 		}
@@ -104,7 +104,7 @@ function Eonara(argQuad = argCel){ // Para reutilizar a Eonara deve se primeiro 
 function Velha(argQuad = argCel){
 	var cont = 0;
 	var x = [];
-	for(var j=1; j<=9; j++){ //Onde serÃƒÆ’Ã‚Â¡ construido o vetor com os ids das casas de cada jogo;
+	for(var j=1; j<=9; j++){ //Onde serÃƒÂ¡ construido o vetor com os ids das casas de cada jogo;
 		x[j-1] = argQuad+""+j.toString();
 		if(Troca(x[j-1])!="Vazio.png"){
 			cont++;
@@ -123,4 +123,4 @@ function argNum(argLetra){
 			return i+1;
 		}
 	}
-}
+}	

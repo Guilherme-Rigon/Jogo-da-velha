@@ -18,7 +18,7 @@ io.on('connection', function(socket){
     playersOnline.splice(0,1); //Removendo a pessoa que está sendo pareada da fila;
   }else{ //Senão adiciona a fila de espera;
     playersOnline[i] = socket.id; //Adicionando a pessoa que está se conectando a fila;
-    i++;
+    //i++; //Imaginar se manter comentado realmente é a melhor opção;
     //Possibilidade de emitir um evento avisando ao player para aguardar;
   }
   socket.on('disconnect', function(){
@@ -40,6 +40,7 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+const porta = process.env.PORT || 3000;
+http.listen(porta, function(){
+  console.log('listening on *: '+porta);
 });

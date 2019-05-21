@@ -167,10 +167,13 @@
             }
         });
         socket.on('pareamento', function(socketAdversario){
-            if(adversario == "" || adversario == null){ //Pensar se isso realmente está certo;
+            if(adversario == "" || adversario == null){ //Só emite o ack se não estiver pareado com mais ninguém;
                 socket.emit('pareamentoACK', socket.id, socketAdversario);
             }
             adversario = socketAdversario;
+            if(adversario == "" || adversario == null){
+                localtion.reload();
+            }
         });
     </script>
     <input type="button" onclick="alert(adversario);">
