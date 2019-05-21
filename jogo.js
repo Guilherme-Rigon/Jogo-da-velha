@@ -21,6 +21,7 @@ function Jogo(id){
 				if(Eonara("x")){
 					//Bloco que serÃƒÂ¡ desparado quando houver vitÃƒÂ³ria sendo SuaVez o vencedor;
 					alert(SuaVez+" Ganhou!!!");
+					location.reload();
 				}
 			}else if(Velha()){
 				document.getElementById('casa_menor'+argNum(argCel)).innerHTML = "<tr id='linha'><td><img src='https://i.ibb.co/cy129GN/V.png' id='x"+argNum(id[0])+"' class='casas_maiores'></td></tr>";
@@ -32,9 +33,6 @@ function Jogo(id){
 				}catch(e){
 					//
 				}
-				/*if(v == 81){ //Teoricamente menos processamento (nÃƒÂ£o testada);
-					alert("Velha");
-				}*/
 			}
 			if(SuaVez=="X"){
 				SuaVez="O";
@@ -123,4 +121,4 @@ function argNum(argLetra){
 			return i+1;
 		}
 	}
-}	
+}

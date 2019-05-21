@@ -11,13 +11,13 @@
     	<script type="text/javascript">
     		// Função que replica 1 célula do jogo em 81
     		$(function() {
-    			
+
     			celula = ''; // string que vai concatenar as células
     			linha = ''; // string para concatenar os códigos das linhas
     			aidi = "linha"; // id onde está a célula que será replicada
     			idi = "casa_menor"; // id nde está a linha que será replicada
     			letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']; // array que contém cada letra de cada quadrante
-    
+
     			for (j = 1; j < 10; j++) { // repetição que montará todos os quadrantes
     				if (j==1) { // se for a primeira vez repetindo, ele fará a primeira linha com 3 células
     					for (var i = 0; i < 3; i++){ // repetição que monta a linha com a única célula
@@ -25,7 +25,7 @@
     					}
     					document.getElementById(aidi).innerHTML = celula; // sobreposição das 3 células na primiera linha
     					for (var i = 0; i < 3; i++){ // repetição que monta as 3 linhas dentro do primeiro quadrante
-    						linha += document.getElementById(idi+j).innerHTML; // concatenação das 3 células formando as 3 linhas 
+    						linha += document.getElementById(idi+j).innerHTML; // concatenação das 3 células formando as 3 linhas
     					}
     					document.getElementById(idi+j).innerHTML = linha; // sobreposição das 3 linhas
     				}else{
@@ -42,15 +42,15 @@
     				}
     			}
     		});
-            SuaMarca = "";
+            SuaMarca = null;
             argCel = null;
-            //alert("x"); 
+            //alert("x");
         </script>
     </head>
     <body bgproperties="fixed">
         <h4 id="Layer">Escolha sua marca</h4>
-        <img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/O.png" id="O" class="casas_menores" onclick="escolherVez(this.id)">
-        <img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/X.png" id="X" class="casas_menores" onclick="escolherVez(this.id)">
+        <img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/O.png" id="O" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
+        <img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/X.png" id="X" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
     	<table class="Tabuleiro" align="Center">
     		<tbody id="">
     			<tr class="linha1">
@@ -68,14 +68,14 @@
     				<td class="coluna1">
     					<table>
     						<tbody id="casa_menor2">
-    							
+
     						</tbody>
     					</table>
     				</td>
     				<td>
     					<table>
     						<tbody id="casa_menor3">
-    							
+
     						</tbody>
     					</table>
     				</td>
@@ -84,21 +84,21 @@
     				<td>
     					<table>
     						<tbody id="casa_menor4">
-    							
+
     						</tbody>
     					</table>
     				</td>
     				<td class="coluna2">
     					<table>
     						<tbody id="casa_menor5">
-    							
+
     						</tbody>
     					</table>
     				</td>
     				<td>
     					<table>
     						<tbody id="casa_menor6">
-    							
+
     						</tbody>
     					</table>
     				</td>
@@ -107,21 +107,21 @@
     				<td>
     					<table>
     						<tbody id="casa_menor7">
-    							
+
     						</tbody>
     					</table>
     				</td>
     				<td class="coluna3">
     					<table>
     						<tbody id="casa_menor8">
-    							
+
     						</tbody>
     					</table>
     				</td>
     				<td>
     					<table>
     						<tbody id="casa_menor9">
-    							
+
     						</tbody>
     					</table>
     				</td>
@@ -133,6 +133,7 @@
     <script type="text/javascript">
         var socket = io(); //Instancia do socket.io front end;
         var adversario = "";
+        c = 0;
         function socketJ(id){ //Despara o socket.io e suas dependências;
             //src = document.getElementById(id).src; //Linha semi inutil;
             socket.emit('jogada', {id:id, socketId:adversario}); //Cria um evento no socket, despara e envia um valor;
@@ -149,12 +150,19 @@
         function escolherVez(id){
             SuaMarca = id;
             argCel = "";
+            document.getElementById('Layer').innerHTML = "Seu adversário está escolhendo...";
             socket.emit('escolheVez', {id:id, socketId:adversario});
             var node = document.getElementById(id);
-            var node1 = document.getElementById('Layer');
             if (node.parentNode) {
               node.parentNode.removeChild(node);
-              node1.parentNode.removeChild(node1);
+              //node1.parentNode.removeChild(node1);
+            }
+            c++;
+            if(c == 2){
+              var node1 = document.getElementById('Layer');
+              if(node1.parentNode){
+                node1.parentNode.removeChild(node1);
+              }
             }
         }
         socket.on('jogadasFeitas', function(jogadas){ //Callback do broadcast;
@@ -162,20 +170,35 @@
         });
         socket.on('Vez', function(id){
             var node = document.getElementById(id);
+            var node1 = document.getElementById('Layer').innerHTML = "Confirme sua marca para começar o jogo";
             if (node.parentNode) {
                 node.parentNode.removeChild(node);
+            }
+            c++;
+            if(c == 2){
+              var node1 = document.getElementById('Layer');
+              if(node1.parentNode){
+                node1.parentNode.removeChild(node1);
+              }
             }
         });
         socket.on('pareamento', function(socketAdversario){
             if(adversario == "" || adversario == null){ //Só emite o ack se não estiver pareado com mais ninguém;
                 socket.emit('pareamentoACK', socket.id, socketAdversario);
+                SuaMarca = "";
+                alert("Você foi pareado com um jogador na fila");
             }
             adversario = socketAdversario;
             if(adversario == "" || adversario == null){
-                localtion.reload();
+                location.reload();
             }
+        });
+        socket.on('isOnline', function(isOnline){
+          if(!isOnline){
+            alert('Seu adversário saiu do jogo');
+            location.reload();
+          }
         });
     </script>
     <input type="button" onclick="alert(adversario);">
 </html>
-

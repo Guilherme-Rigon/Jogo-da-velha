@@ -8,13 +8,18 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-let jogadas = []; //Pensar se let seria a melhor opção;
+let p1 = [];
+let p2 = [];
+var a = 0;
 
 io.on('connection', function(socket){
   console.log('a user connected ' + socket.id);
   //Linha onde vai acontecer o pareamento de jogadores;
   if(playersOnline.length > 0){ //Se houverem players na fila ele faz o pareamento;
     socket.emit('pareamento', playersOnline[0]); //Principio de uma fila de espera;
+    p1[a] = socket.id;
+    p2[a] = playersOnline[0];
+    a++;
     playersOnline.splice(0,1); //Removendo a pessoa que está sendo pareada da fila;
   }else{ //Senão adiciona a fila de espera;
     playersOnline[i] = socket.id; //Adicionando a pessoa que está se conectando a fila;
@@ -26,10 +31,21 @@ io.on('connection', function(socket){
     if(index >= 0){ //Verifica se o indice é valido;
       playersOnline.splice(index,1); //Remove o indice do vetor de players online;
     }
+    for(var j = 0; j<p1.length; j++){
+      if(p1[j] == socket.id){
+        io.to(p2[j]).emit('isOnline', false);
+        break;
+      }
+      if(p2[j] == socket.id){
+        io.to(p1[j]).emit('isOnline', false);
+        break;
+      }
+    }
+    //io.to(adversario).emit('isOnline', false);
     console.log('user disconnected ' + socket.id);
   });
   socket.on('jogada', function(jogada){
-    jogadas.push(jogada);
+    //jogadas.push(jogada);
     io.to(jogada.socketId).emit('jogadasFeitas', jogada.id);
   });
   socket.on('escolheVez', function(id){
