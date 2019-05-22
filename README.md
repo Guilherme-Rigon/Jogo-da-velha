@@ -5,9 +5,9 @@
  
  # Regras
  
-  Durante a leitura das regras consideraremos:
-   Velha = Empate e
-   Jogo-Elemento = Elemento da Matriz 3x3 maior ou jogo da velha menor.
+  Durante a leitura das regras consideraremos: </br>
+   Velha = Empate; </br>
+   Jogo-Elemento = Elemento da Matriz 3x3 maior ou jogo da velha menor. </br>
    
   As regras são as mesmas com algumas exceções: </br>
    1° O tabuleiro  é uma matriz  de três linhas por três colunas, onde todos os elementos da matriz são jogos da velha clássico; </br>
