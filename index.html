@@ -6,9 +6,9 @@
     	<link rel="shortcut icon" href="https://kadkest-projeto.000webhostapp.com/kadkest/img/V.png">
     	<meta name="viewport" content="width=device-width, user-scalable=no">
     	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Guilherme-Rigon/Jogo-da-velha@master/estilo.css" />
-    	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Guilherme-Rigon/Jogo-da-velha@master/jogo.js"></script>
     	<script type="text/javascript" src="https://static.tumblr.com/qoonpff/zLmprgl9v/jquery-3.1.1.min.js"></script>
-    	<script type="text/javascript">
+		<script type="text/javascript" src="https://kadkest-projeto.000webhostapp.com/jogo.js"></script>
+		<script type="text/javascript">
     		// Função que replica 1 célula do jogo em 81
     		$(function() {
 
@@ -45,7 +45,20 @@
             SuaMarca = null;
             argCel = null;
             //alert("x");
-        </script>
+		</script>
+		<style>
+			@keyframes pisca {
+				from {
+					filter: drop-shadow( 0 0 0 #FF00FF);
+				}
+				to {
+					filter: drop-shadow( 0 0 30px #FF00FF);
+				}
+			}
+			.selecionado{
+				animation: pisca 1s alternate infinite ease-in-out;
+			}
+		</style>
     </head>
     <body bgproperties="fixed">
         <h4 id="Layer">Escolha sua marca</h4>
@@ -54,25 +67,25 @@
     	<table class="Tabuleiro" align="Center">
     		<tbody id="">
     			<tr class="linha1">
-    				<td>
-    					<div>
-    						<table>
-    							<tbody id="casa_menor1">
-    								<tr id="linha">
-    									<td><img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/Vazio.png" id="a" class="casas_menores" onclick="if(SuaMarca == SuaVez){socketJ(this.id); Jogo(this.id);}"></td>
-    								</tr>
-    							</tbody>
-    						</table>
-    					</div>
-    				</td>
-    				<td class="coluna1">
-    					<table>
-    						<tbody id="casa_menor2">
+					<td id="1">
+						<table>
+							<tbody id="casa_menor1">
+								<tr id="linha">
+									<td><img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/Vazio.png" id="a" class="casas_menores" onclick="if(SuaMarca == SuaVez){socketJ(this.id); Jogo(this.id);}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+					<td id="2">
+						<div class="coluna1">
+							<table>
+								<tbody id="casa_menor2">
 
-    						</tbody>
-    					</table>
+								</tbody>
+							</table>
+						</div>
     				</td>
-    				<td>
+    				<td id="3">
     					<table>
     						<tbody id="casa_menor3">
 
@@ -81,21 +94,23 @@
     				</td>
     			</tr>
     			<tr class="linha2">
-    				<td>
+    				<td id="4">
     					<table>
     						<tbody id="casa_menor4">
 
     						</tbody>
     					</table>
     				</td>
-    				<td class="coluna2">
-    					<table>
-    						<tbody id="casa_menor5">
+    				<td id="5">
+						<div class="coluna2">
+							<table>
+								<tbody id="casa_menor5">
 
-    						</tbody>
-    					</table>
+								</tbody>
+							</table>
+						</div>
     				</td>
-    				<td>
+    				<td id="6">
     					<table>
     						<tbody id="casa_menor6">
 
@@ -104,21 +119,23 @@
     				</td>
     			</tr>
     			<tr class="linha3">
-    				<td>
+    				<td id="7">
     					<table>
     						<tbody id="casa_menor7">
 
     						</tbody>
     					</table>
     				</td>
-    				<td class="coluna3">
-    					<table>
-    						<tbody id="casa_menor8">
+    				<td id="8">
+						<div class="coluna3">
+							<table>
+								<tbody id="casa_menor8">
 
-    						</tbody>
-    					</table>
+								</tbody>
+							</table>
+						</div>
     				</td>
-    				<td>
+    				<td id="9">
     					<table>
     						<tbody id="casa_menor9">
 
