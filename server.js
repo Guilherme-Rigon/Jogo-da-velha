@@ -14,6 +14,7 @@ var a = 0;
 
 io.on('connection', function(socket){
   console.log('a user connected ' + socket.id);
+
   //Linha onde vai acontecer o pareamento de jogadores;
   if(playersOnline.length > 0){ //Se houverem players na fila ele faz o pareamento;
     socket.emit('pareamento', playersOnline[0]); //Principio de uma fila de espera;
@@ -48,11 +49,17 @@ io.on('connection', function(socket){
     //jogadas.push(jogada);
     io.to(jogada.socketId).emit('jogadasFeitas', jogada.id);
   });
+
   socket.on('escolheVez', function(id){
     io.to(id.socketId).emit('Vez', id.id);
   });
   socket.on('pareamentoACK', function(socketId, socketAdversario){
     io.to(socketAdversario).emit('pareamento', socketId);
+  });
+// começo de chat
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+    console.log('Usuario'+socket.id, msg);
   });
 });
 

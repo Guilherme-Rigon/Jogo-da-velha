@@ -61,97 +61,119 @@
 			body{
 				background-color: #4F4F4F;
 			}
+			* {box-sizing: border-box; }
+      /* body { font: 13px Helvetica, Arial; } */
+      form {position: fixed; margin: 0; bottom: 0; width: 30%;}
+      form input { border: 0; padding: 10px; width: 80%; margin-right: .5%; }
+      form button { width: 18%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; background: #eee;  /*rgb(248, 0, 145);*/ }
+      #messages li:nth-child(odd) { background: #eee; }
+			.chat{
+				position: absolute;
+				width: 25%;
+			}
 		</style>
     </head>
     <body bgproperties="fixed">
-        <h4 id="Layer">Escolha sua marca</h4>
-        <img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/O.png" id="O" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
-        <img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/X.png" id="X" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
-    	<table class="Tabuleiro" align="Center">
-    		<tbody id="">
-    			<tr class="linha1">
-					<td id="1">
-						<table>
-							<tbody id="casa_menor1">
-								<tr id="linha">
-									<td><img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/Vazio.png" id="a" class="casas_menores" onclick="if(SuaMarca == SuaVez){socketJ(this.id); Jogo(this.id);}"></td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-					<td id="2">
-						<div class="coluna1">
+			<h4 id="Layer">Escolha sua marca</h4>
+			<img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/O.png" id="O" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
+			<img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/X.png" id="X" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
+			<div class="chat">
+					<ul id="messages"></ul>
+					<form action="">
+						<input id="m" autocomplete="off" /><button>Send</button>
+					</form>
+			</div>
+			<div class="jogo">
+				<table class="Tabuleiro" align="Center">
+					<tbody id="">
+						<tr class="linha1">
+						<td id="1">
 							<table>
-								<tbody id="casa_menor2">
-
+								<tbody id="casa_menor1">
+									<tr id="linha">
+										<td><img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/Vazio.png" id="a" class="casas_menores" onclick="if(SuaMarca == SuaVez){socketJ(this.id); Jogo(this.id);}"></td>
+									</tr>
 								</tbody>
 							</table>
-						</div>
-    				</td>
-    				<td id="3">
-    					<table>
-    						<tbody id="casa_menor3">
+						</td>
+						<td id="2">
+							<div class="coluna1">
+								<table>
+									<tbody id="casa_menor2">
 
-    						</tbody>
-    					</table>
-    				</td>
-    			</tr>
-    			<tr class="linha2">
-    				<td id="4">
-    					<table>
-    						<tbody id="casa_menor4">
+									</tbody>
+								</table>
+							</div>
+							</td>
+							<td id="3">
+								<table>
+									<tbody id="casa_menor3">
 
-    						</tbody>
-    					</table>
-    				</td>
-    				<td id="5">
-						<div class="coluna2">
-							<table>
-								<tbody id="casa_menor5">
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr class="linha2">
+							<td id="4">
+								<table>
+									<tbody id="casa_menor4">
 
-								</tbody>
-							</table>
-						</div>
-    				</td>
-    				<td id="6">
-    					<table>
-    						<tbody id="casa_menor6">
+									</tbody>
+								</table>
+							</td>
+							<td id="5">
+							<div class="coluna2">
+								<table>
+									<tbody id="casa_menor5">
 
-    						</tbody>
-    					</table>
-    				</td>
-    			</tr>
-    			<tr class="linha3">
-    				<td id="7">
-    					<table>
-    						<tbody id="casa_menor7">
+									</tbody>
+								</table>
+							</div>
+							</td>
+							<td id="6">
+								<table>
+									<tbody id="casa_menor6">
 
-    						</tbody>
-    					</table>
-    				</td>
-    				<td id="8">
-						<div class="coluna3">
-							<table>
-								<tbody id="casa_menor8">
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr class="linha3">
+							<td id="7">
+								<table>
+									<tbody id="casa_menor7">
 
-								</tbody>
-							</table>
-						</div>
-    				</td>
-    				<td id="9">
-    					<table>
-    						<tbody id="casa_menor9">
+									</tbody>
+								</table>
+							</td>
+							<td id="8">
+							<div class="coluna3">
+								<table>
+									<tbody id="casa_menor8">
 
-    						</tbody>
-    					</table>
-    				</td>
-    			</tr>
-    		</tbody>
-    	</table>
+									</tbody>
+								</table>
+							</div>
+							</td>
+							<td id="9">
+								<table>
+									<tbody id="casa_menor9">
+
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
+
     </body>
     <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript">
-        var socket = io(); //Instancia do socket.io front end;
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>		
+		<script type="text/javascript">
+				var socket = io(); //Instancia do socket.io front end;
         var adversario = "";
         c = 0;
         function socketJ(id){ //Despara o socket.io e suas dependências;
@@ -218,7 +240,21 @@
             alert('Seu adversário saiu do jogo');
             location.reload();
           }
-        });
+				});
+				// começo de chat
+					$(function () {
+
+						$('form').submit(function(e){
+							e.preventDefault(); // prevents page reloading
+							socket.emit('chat message', $('#m').val());
+							$('#m').val('');
+							return false;
+						});
+						socket.on('chat message', function(msg){
+							$('#messages').append($('<li>').text(msg));
+						});
+					});
+
     </script>
-    <input type="button" onclick="alert(adversario);">
+    <!-- <input type="button" onclick="alert(adversario);"> -->
 </html>
