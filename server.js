@@ -57,10 +57,11 @@ io.on('connection', function(socket){
     io.to(socketAdversario).emit('pareamento', socketId);
   });
 // começo de chat
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+  socket.on('chat message', function(msg, socketAdversario){
+    io.to(socketAdversario).emit('chat message', msg);
     console.log('Usuario'+socket.id, msg);
   });
+
 });
 
 const porta = process.env.PORT || 3000;
