@@ -63,9 +63,9 @@
 			}
 			* {box-sizing: border-box; }
       /* body { font: 13px Helvetica, Arial; } */
-      form {position: fixed; margin: 0; bottom: 0; width: 30%;}
-      form input { border: 0; padding: 10px; width: 80%; margin-right: .5%; }
-      form button { width: 18%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #mensagem {position: fixed; margin: 0; bottom: 0; width: 30%;}
+      #mensagem input { border: 0; padding: 10px; width: 80%; margin-right: .5%; }
+      #mensagem button { width: 18%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; background: #eee;  /*rgb(248, 0, 145);*/ }
       #messages li:nth-child(odd) { background: #eee; }
@@ -77,11 +77,20 @@
     </head>
     <body bgproperties="fixed">
 			<h4 id="Layer">Escolha sua marca</h4>
+			<p>
+				<form id="formNome">
+					Informe seu nome:<br/>
+					<input type="text" id="nome">
+					<input type="submit">
+				</form>
+				<br>
+			</p>
+
 			<img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/O.png" id="O" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
 			<img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/X.png" id="X" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
 			<div class="chat">
 					<ul id="messages"></ul>
-					<form action="">
+					<form id="mensagem" style="display: none;">
 						<input id="m" autocomplete="off" /><button>Send</button>
 					</form>
 			</div>
@@ -175,7 +184,8 @@
 		<script type="text/javascript">
 				var socket = io(); //Instancia do socket.io front end;
         var adversario = "";
-        c = 0;
+				c = 0;
+				chat = false;
         function socketJ(id){ //Despara o socket.io e suas dependências;
             //src = document.getElementById(id).src; //Linha semi inutil;
             socket.emit('jogada', {id:id, socketId:adversario}); //Cria um evento no socket, despara e envia um valor;
@@ -229,7 +239,8 @@
                 socket.emit('pareamentoACK', socket.id, socketAdversario);
                 SuaMarca = "";
                 alert("Você foi pareado com um jogador na fila");
-            }
+						}
+						chat = true;
             adversario = socketAdversario;
             if(adversario == "" || adversario == null){
                 location.reload();
@@ -243,12 +254,22 @@
 				});
 				// começo de chat
 					$(function () {
+						$('#formNome').submit(function(e){
+							e.preventDefault();
+							nome = $('#nome').val().toUpperCase();
+							socket.emit('chat message', nome+" Se conctou ao chat!", adversario);
+							$('#formNome').css('display', 'none');
+							$('#mensagem').css('display', 'block');
+						});
 
-						$('form').submit(function(e){
+						$('#mensagem').submit(function(e){
 							e.preventDefault(); // prevents page reloading
-							socket.emit('chat message', $('#m').val());
-							$('#m').val('');
-							return false;
+							if(chat){
+								socket.emit('chat message', nome+": "+$('#m').val(), adversario);
+								$('#messages').append($('<li>').text(nome+": "+$('#m').val()));
+								$('#m').val('');
+								return false;
+							}
 						});
 						socket.on('chat message', function(msg){
 							$('#messages').append($('<li>').text(msg));
