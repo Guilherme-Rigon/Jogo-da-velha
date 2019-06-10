@@ -318,13 +318,13 @@
 						chat = true;
             adversario = socketAdversario;
             if(adversario == "" || adversario == null){
-                location.reload();
+                window.location.href = '/';
             }
         });
         socket.on('isOnline', function(isOnline){
           if(!isOnline){
             alert('Seu adversário saiu do jogo');
-            location.reload();
+            window.location.href = '/';
           }
 				});
 				// começo de chat
