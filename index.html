@@ -5,9 +5,13 @@
     	<meta charset="utf-8">
     	<link rel="shortcut icon" href="https://kadkest-projeto.000webhostapp.com/kadkest/img/V.png">
     	<meta name="viewport" content="width=device-width, initial-scale=0.8">
-    	<link rel="stylesheet" type="text/css" href="https://kadkest-projeto.000webhostapp.com/estilo.css" />
+		<link rel="stylesheet" type="text/css" href="https://kadkest-projeto.000webhostapp.com/estilo.css" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     	<script type="text/javascript" src="https://static.tumblr.com/qoonpff/zLmprgl9v/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript" src="https://kadkest-projeto.000webhostapp.com/jogo.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 		<script type="text/javascript">
     		// Função que replica 1 célula do jogo em 81
     		$(function() {
@@ -59,57 +63,18 @@
 				animation: pisca 1s alternate infinite ease-in-out;
 			}
 			body{
-				background-color: #4F4F4F;
-				font-family: Arial, Helvetica, sans-serif;
+				/* background-color: #4F4F4F; */
+				background: url('https://img.freepik.com/fotos-gratis/modelo-de-textura-de-fundo-abstrato-hexagono-3d_35906-53.jpg?size=338&ext=jpg') fixed no-repeat;
+				-webkit-background-size: cover;
+				-o-background-size: cover;
+				-moz-background-size: cover;
+				background-size: cover;
+			}
+			.modal{
+				color: black;
 			}
 			* {box-sizing: border-box; }
-				#mensagem {
-					float: left;
-					position: absolute;
-					margin: 0;
-					bottom: 0;
-					margin-bottom: 80px;
-					width: 30%;
-				}
-				#mensagem input {
-					width: 50%;
-					padding: 12px 20px;
-					margin: 8px 0;
-					box-sizing: border-box;
-					border: none;
-					background-color: #3CBC8D;
-					color: white;
-				}
-				.button {
-					background-color: #4CAF50; /* Green */
-					border: 1px solid green;
-					color: white;
-					padding: 9.5px 20px;
-					margin: 8px 5px;
-					text-align: center;
-					text-decoration: none;
-					display: inline-block;
-					font-size: 100%;
-					cursor: pointer;
-					
-				}
 
-				.button:hover {
-					background-color: #3e8e41;
-				}
-				#messages {  list-style-type: none; margin: 0; padding: 5px }
-				#messages li { padding: 5px 10px; background: #eee;  /*rgb(248, 0, 145);*/ }
-				#messages li:nth-child(odd) { background: #eee; }
-				.chat{
-					/* position: relative; */
-					border-width:2px;
-					width:	20%;
-					height: 450px;
-					background-color: #6495ED;
-					float: left;
-					overflow: auto;
-					/* margin-right: 10px; */
-				}
 				.jogo{
 					position: relative;
 					left:0px;
@@ -128,28 +93,25 @@
 		</style>
     </head>
     <body bgproperties="fixed">
-			<div style="position: absolute">
+			<div style="position: absolute; margin-left: 10px;">
 
-			<h4 id="Layer" >Escolha sua marca</h4>
+				<h4 class="h4" id="Layer" >Escolha sua marca</h4>
 
-			<img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/O.png" id="O" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
-			<img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/X.png" id="X" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
-			<p>
+				<img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/O.png" id="O" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
+				<img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/X.png" id="X" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
+				<p>
 					<form id="formNome" style="display: none;">
 						Informe seu nome:<br/>
 						<input type="text" id="nome">
 						<input type="submit" class="button">
 					</form>
 					<br>
+					<button id="imgchat" class="btn btn-sm btn-primary" style="display: none; margin-left: 10px;" src="https://www.modalmais.com.br/wp-content/uploads/2016/08/ico-chat.png" onclick="showModal();" >
+						Chat <span class="badge badge-light" id='notifica'></span>
+					</button>
 				</p>
-		</div>
-			
-			<div class="chat" id="chat" style="display: none;">
-					<ul id="messages"></ul>
 			</div>
-			<form id="mensagem" style="display: none;">
-				<input id="m" autocomplete="off" /><button class="button">Enviar</button>
-			</form>
+			
 			<div class="jogo">
 				<table class="Tabuleiro" align="Center">
 					<tbody id="">
@@ -233,12 +195,65 @@
 					</tbody>
 				</table>
 			</div>	
+			<!-- modal -->
+			<div class="modal fade" id="modal" tabindex="-1" role="dialog">
+				<div class="modal-dialog modal-dialog-scrollable" role="document">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title">Mensagens</h5>
+					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+					<div class="modal-body" id="chat">
+					  <div id="massages">
 
+					  </div>
+					</div>
+					<div class="modal-footer">
+						<form id="mensagem" style="display: none; width: 100%;">
+							<div class="form-group">
+								<div class="input-group">
+									<input type="text" id="m" class="form-control">
+									<div class="input-group-append">
+										<button class="btn btn-outline-secondary" type="submit" id="button-addon2">Enviar</button>
+									</div>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				  </div>
+				</div>
+			  </div>
+
+			  <div id="ModalEsperando">
+
+				  <div class="modal fade" id="esperando" tabindex="-1" role="dialog" data-backdrop="static">
+					<div class="modal-dialog modal-dialog-scrollable" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Esperando seu adversário</h5>
+							</div>
+							<div class="modal-body" id="chatEsperando" align="center">
+								AGUARDANDO NOVO ADVERSÁRIO
+							</div>
+							<div class="modal-footer">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+				<!-- /modal -->
     </body>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>		
-		<script type="text/javascript">
-				var socket = io(); //Instancia do socket.io front end;
+    <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script>		 -->
+	<script type="text/javascript">
+		
+		
+		var socket = io(); //Instancia do socket.io front end;
         var adversario = "";
 				c = 0;
 				chat = false;
@@ -289,14 +304,17 @@
                 node1.parentNode.removeChild(node1);
               }
             }
-						$('#formNome').css('display', 'block');
+			$('#formNome').css('display', 'block');
         });
         socket.on('pareamento', function(socketAdversario){
             if(adversario == "" || adversario == null){ //Só emite o ack se não estiver pareado com mais ninguém;
                 socket.emit('pareamentoACK', socket.id, socketAdversario);
-                SuaMarca = "";
-                alert("Você foi pareado com um jogador na fila");
-						}
+				SuaMarca = "";
+				// $('#esperando').modal('hide');
+				$('#chatEsperando').text('');
+				$('#chatEsperando').append('<button class="btn btn-primary" data-dismiss="modal">Jogar</button>');
+				// alert("Você foi pareado com um jogador na fila");
+			}
 						chat = true;
             adversario = socketAdversario;
             if(adversario == "" || adversario == null){
@@ -314,25 +332,43 @@
 						$('#formNome').submit(function(e){
 							e.preventDefault();
 							nome = $('#nome').val();
-							socket.emit('chat message', nome+" Se conctou ao chat!", adversario);
+							socket.emit('chat message', nome+": se conctou ao chat!", adversario);
 							$('#formNome').css('display', 'none');
 							$('#mensagem').css('display', 'block');
 							$('#chat').css('display', 'block');
+							$('#imgchat').css('display', 'block');
 						});
 
 						$('#mensagem').submit(function(e){
 							e.preventDefault(); // prevents page reloading
 							if(chat){
-								socket.emit('chat message', nome+": "+$('#m').val(), adversario);
-								$('#messages').append($('<li>').text(nome+": "+$('#m').val()));
-								$('#m').val('');
-								return false;
+								if($('#m').val()!=''){
+									socket.emit('chat message', nome+": "+$('#m').val(), adversario);
+									$('#chat').append($('<p>').text(nome+": "+$('#m').val()));
+									$('#m').val('');
+									return false;
+								}
 							}
 						});
+						i=0;
 						socket.on('chat message', function(msg){
-							$('#messages').append($('<li>').text(msg));
+							if(i==0){
+								$('#notifica').text('');
+								i++;
+							}else{
+								$('#notifica').text(i++);								
+							}
+							$('#chat').append($('<p>').text(msg));
 						});
 					});
+					function showModal(){
+						$('#modal').modal('show');
+						$('#notifica').text('');
+					}
+					$(function(){
+						$('#esperando').modal('show');
+					})
+					
 
     </script>
     <!-- <input type="button" onclick="alert(adversario);"> -->

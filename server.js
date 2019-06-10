@@ -5,9 +5,12 @@ var playersOnline = [];
 var i = 0;
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/inicio.html');
 });
 
+app.get('/jogo', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
 let p1 = [];
 let p2 = [];
 var a = 0;
