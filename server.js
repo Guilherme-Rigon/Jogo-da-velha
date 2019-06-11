@@ -7,9 +7,10 @@ var i = 0;
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
+
 app.get('/jogo', function(req, res){
   res.sendFile(__dirname + '/jogo.html');
-
+});
 
 let p1 = [];
 let p2 = [];
@@ -70,5 +71,4 @@ io.on('connection', function(socket){
 const porta = process.env.PORT || 3000;
 http.listen(porta, function(){
   console.log('listening on *: '+porta);
-});
 });
