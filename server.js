@@ -4,8 +4,8 @@ var io = require('socket.io')(http);
 var playersOnline = [];
 var i = 0;
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+app.get('/jogo', function(req, res){
+  res.sendFile(__dirname + '/jogo.html');
 });
 
 let p1 = [];

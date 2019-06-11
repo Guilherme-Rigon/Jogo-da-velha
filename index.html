@@ -1,339 +1,61 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    	<title>Jogo da Velha</title>
-    	<meta charset="utf-8">
-    	<link rel="shortcut icon" href="https://kadkest-projeto.000webhostapp.com/kadkest/img/V.png">
-    	<meta name="viewport" content="width=device-width, initial-scale=0.8">
-    	<link rel="stylesheet" type="text/css" href="https://kadkest-projeto.000webhostapp.com/estilo.css" />
-    	<script type="text/javascript" src="https://static.tumblr.com/qoonpff/zLmprgl9v/jquery-3.1.1.min.js"></script>
-		<script type="text/javascript" src="https://kadkest-projeto.000webhostapp.com/jogo.js"></script>
-		<script type="text/javascript">
-    		// Função que replica 1 célula do jogo em 81
-    		$(function() {
-
-    			celula = ''; // string que vai concatenar as células
-    			linha = ''; // string para concatenar os códigos das linhas
-    			aidi = "linha"; // id onde está a célula que será replicada
-    			idi = "casa_menor"; // id nde está a linha que será replicada
-    			letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']; // array que contém cada letra de cada quadrante
-
-    			for (j = 1; j < 10; j++) { // repetição que montará todos os quadrantes
-    				if (j==1) { // se for a primeira vez repetindo, ele fará a primeira linha com 3 células
-    					for (var i = 0; i < 3; i++){ // repetição que monta a linha com a única célula
-    						celula += document.getElementById(aidi).innerHTML; // concatenação da célula para formação da linha
-    					}
-    					document.getElementById(aidi).innerHTML = celula; // sobreposição das 3 células na primiera linha
-    					for (var i = 0; i < 3; i++){ // repetição que monta as 3 linhas dentro do primeiro quadrante
-    						linha += document.getElementById(idi+j).innerHTML; // concatenação das 3 células formando as 3 linhas
-    					}
-    					document.getElementById(idi+j).innerHTML = linha; // sobreposição das 3 linhas
-    				}else{
-    					// depois do primeiro quadrante ele começa a fazer as 3 linhas em cada quadrante
-    					linha += document.getElementById(idi+1).innerHTML; // concatenação das linhas para formação do quadrante completo
-    					document.getElementById(idi+j).innerHTML = linha; // sobreposição das 3 linhas em cada quadrante
-    				}
-    				linha = ''; // limpando a variável para que continue sendo concatenada
-    			}
-    			// parte que dará todos os id's corretos para cada célula
-    			for (j = 0; j < 9; j++) { // repetição que controla a letra
-    				for (i = 1; i < 10; i++) { // repetição que controla o número da célula
-    					document.getElementById('a').id = letras[j]+i; // troca dos id's para o correto
-    				}
-    			}
-    		});
-            SuaMarca = null;
-            argCel = null;
-            //alert("x");
-		</script>
-		<style>
-			@keyframes pisca {
-				from {
-					filter: drop-shadow( 0 0 0 #FF00FF);
-				}
-				to {
-					filter: drop-shadow( 0 0 30px #FF00FF);
-				}
-			}
-			.selecionado{
-				animation: pisca 1s alternate infinite ease-in-out;
-			}
-			body{
-				background-color: #4F4F4F;
-				font-family: Arial, Helvetica, sans-serif;
-			}
-			* {box-sizing: border-box; }
-				#mensagem {
-					float: left;
-					position: absolute;
-					margin: 0;
-					bottom: 0;
-					margin-bottom: 80px;
-					width: 30%;
-				}
-				#mensagem input {
-					width: 50%;
-					padding: 12px 20px;
-					margin: 8px 0;
-					box-sizing: border-box;
-					border: none;
-					background-color: #3CBC8D;
-					color: white;
-				}
-				.button {
-					background-color: #4CAF50; /* Green */
-					border: 1px solid green;
-					color: white;
-					padding: 9.5px 20px;
-					margin: 8px 5px;
-					text-align: center;
-					text-decoration: none;
-					display: inline-block;
-					font-size: 100%;
-					cursor: pointer;
-					
-				}
-
-				.button:hover {
-					background-color: #3e8e41;
-				}
-				#messages {  list-style-type: none; margin: 0; padding: 5px }
-				#messages li { padding: 5px 10px; background: #eee;  /*rgb(248, 0, 145);*/ }
-				#messages li:nth-child(odd) { background: #eee; }
-				.chat{
-					/* position: relative; */
-					border-width:2px;
-					width:	20%;
-					height: 450px;
-					background-color: #6495ED;
-					float: left;
-					overflow: auto;
-					/* margin-right: 10px; */
-				}
-				.jogo{
-					position: relative;
-					left:0px;
-					float: right;
-					width:	80%;
-				}
-				#formNome input {
-					width: 50%;
-					padding: 12px 20px;
-					margin: 8px 0;
-					box-sizing: border-box;
-					border: none;
-					background-color: #3CBC8D;
-					color: white;
-				}
-		</style>
-    </head>
-    <body bgproperties="fixed">
-			<div style="position: absolute">
-
-			<h4 id="Layer" >Escolha sua marca</h4>
-
-			<img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/O.png" id="O" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
-			<img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/X.png" id="X" class="casas_menores" onclick="if(SuaMarca == ''){escolherVez(this.id);}">
-			<p>
-					<form id="formNome" style="display: none;">
-						Informe seu nome:<br/>
-						<input type="text" id="nome">
-						<input type="submit" class="button">
-					</form>
-					<br>
-				</p>
-		</div>
-			
-			<div class="chat" id="chat" style="display: none;">
-					<ul id="messages"></ul>
-			</div>
-			<form id="mensagem" style="display: none;">
-				<input id="m" autocomplete="off" /><button class="button">Enviar</button>
-			</form>
-			<div class="jogo">
-				<table class="Tabuleiro" align="Center">
-					<tbody id="">
-						<tr class="linha1">
-						<td id="1">
-							<table>
-								<tbody id="casa_menor1">
-									<tr id="linha">
-										<td><img src="https://kadkest-projeto.000webhostapp.com/kadkest/img/Vazio.png" id="a" class="casas_menores" onclick="if(SuaMarca == SuaVez){socketJ(this.id); Jogo(this.id);}"></td>
-									</tr>
-								</tbody>
-							</table>
-						</td>
-						<td id="2">
-							<div class="coluna1">
-								<table>
-									<tbody id="casa_menor2">
-
-									</tbody>
-								</table>
-							</div>
-							</td>
-							<td id="3">
-								<table>
-									<tbody id="casa_menor3">
-
-									</tbody>
-								</table>
-							</td>
-						</tr>
-						<tr class="linha2">
-							<td id="4">
-								<table>
-									<tbody id="casa_menor4">
-
-									</tbody>
-								</table>
-							</td>
-							<td id="5">
-							<div class="coluna2">
-								<table>
-									<tbody id="casa_menor5">
-
-									</tbody>
-								</table>
-							</div>
-							</td>
-							<td id="6">
-								<table>
-									<tbody id="casa_menor6">
-
-									</tbody>
-								</table>
-							</td>
-						</tr>
-						<tr class="linha3">
-							<td id="7">
-								<table>
-									<tbody id="casa_menor7">
-
-									</tbody>
-								</table>
-							</td>
-							<td id="8">
-							<div class="coluna3">
-								<table>
-									<tbody id="casa_menor8">
-
-									</tbody>
-								</table>
-							</div>
-							</td>
-							<td id="9">
-								<table>
-									<tbody id="casa_menor9">
-
-									</tbody>
-								</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>	
-
+<html lang="en">
+<head>
+    <title>Jogo da Velha</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="https://kadkest-projeto.000webhostapp.com/kadkest/img/V.png">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <link rel="stylesheet" type="text/css" href="https://kadkest-projeto.000webhostapp.com/estilo.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="https://static.tumblr.com/qoonpff/zLmprgl9v/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://kadkest-projeto.000webhostapp.com/jogo.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style>
+        .login{
+            width: 300px;
+            height: 300px;
+        }
+        .login h1{
+            text-align: center;
+        }
+        .container{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center
+        }
+        input{
+            margin-bottom: 5px;
+        }
+        select{
+            margin-bottom: 5px;
+        }
+        /* form .frase{
+            text-align: left;
+        } */
+    </style>
+</head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="login">
+                    <form align="center">
+                        <h1>HASH</h1>
+                        <br>
+                        <p>
+                            <a href="/jogo" class="btn btn-xm btn-primary">Novo Jogo</a>                            
+                        </p>
+                        <br>                        
+                        <b class="frase">
+                            Seja Bem-Vindo ao <a>HASH</a>
+                        </b>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>		
-		<script type="text/javascript">
-				var socket = io(); //Instancia do socket.io front end;
-        var adversario = "";
-				c = 0;
-				chat = false;
-        function socketJ(id){ //Despara o socket.io e suas dependências;
-            //src = document.getElementById(id).src; //Linha semi inutil;
-            socket.emit('jogada', {id:id, socketId:adversario}); //Cria um evento no socket, despara e envia um valor;
-            //argCel = "";
-        }
-        function renderTable(jogadas){ //Renderiza todas as jogadas já feitas; Manter função por enquanto;
-            //var x = SuaVez;
-            //alert(jogadas);
-            //SuaVez = "O";
-            //for(jogada of jogadas){
-                Jogo(jogadas);
-            //}
-        }
-        function escolherVez(id){
-            SuaMarca = id;
-            argCel = "";
-            document.getElementById('Layer').innerHTML = "Seu adversário está escolhendo...";
-            socket.emit('escolheVez', {id:id, socketId:adversario});
-            var node = document.getElementById(id);
-            if (node.parentNode) {
-              node.parentNode.removeChild(node);
-              //node1.parentNode.removeChild(node1);
-            }
-            c++;
-            if(c == 2){
-              var node1 = document.getElementById('Layer');
-              if(node1.parentNode){
-                node1.parentNode.removeChild(node1);
-              }
-            }
-        }
-        socket.on('jogadasFeitas', function(jogadas){ //Callback do broadcast;
-            renderTable(jogadas);
-        });
-        socket.on('Vez', function(id){
-            var node = document.getElementById(id);
-            var node1 = document.getElementById('Layer').innerHTML = "Confirme sua marca para começar o jogo";
-            if (node.parentNode) {
-                node.parentNode.removeChild(node);
-            }
-            c++;
-            if(c == 2){
-              var node1 = document.getElementById('Layer');
-              if(node1.parentNode){
-                node1.parentNode.removeChild(node1);
-              }
-            }
-						$('#formNome').css('display', 'block');
-        });
-        socket.on('pareamento', function(socketAdversario){
-            if(adversario == "" || adversario == null){ //Só emite o ack se não estiver pareado com mais ninguém;
-                socket.emit('pareamentoACK', socket.id, socketAdversario);
-                SuaMarca = "";
-                alert("Você foi pareado com um jogador na fila");
-						}
-						chat = true;
-            adversario = socketAdversario;
-            if(adversario == "" || adversario == null){
-                location.reload();
-            }
-        });
-        socket.on('isOnline', function(isOnline){
-          if(!isOnline){
-            alert('Seu adversário saiu do jogo');
-            location.reload();
-          }
-				});
-				// começo de chat
-					$(function () {
-						$('#formNome').submit(function(e){
-							e.preventDefault();
-							nome = $('#nome').val();
-							socket.emit('chat message', nome+" Se conctou ao chat!", adversario);
-							$('#formNome').css('display', 'none');
-							$('#mensagem').css('display', 'block');
-							$('#chat').css('display', 'block');
-						});
-
-						$('#mensagem').submit(function(e){
-							e.preventDefault(); // prevents page reloading
-							if(chat){
-								socket.emit('chat message', nome+": "+$('#m').val(), adversario);
-								$('#messages').append($('<li>').text(nome+": "+$('#m').val()));
-								$('#m').val('');
-								return false;
-							}
-						});
-						socket.on('chat message', function(msg){
-							$('#messages').append($('<li>').text(msg));
-						});
-					});
-
-    </script>
-    <!-- <input type="button" onclick="alert(adversario);"> -->
 </html>
