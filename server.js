@@ -8,6 +8,9 @@ app.get('/jogo', function(req, res){
   res.sendFile(__dirname + '/jogo.html');
 });
 
+app.get('/jogo', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
 let p1 = [];
 let p2 = [];
 var a = 0;
