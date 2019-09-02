@@ -1,7 +1,7 @@
 # HASH
 
  Este projeto é o resultado do trabalho proposto na matéria de Introdução a informática do 1° Período de Sistemas de Informação do Centro Universitário Geraldo Di Biase (UGB-VR), tendo como objetivo criar um jogo independente da tecnologia escolhida, sendo sugerido Construct. </br> 
- O projeto tem como objetivo elucidar de forma gráfica e lógica que a aprendizagem gamificada trás vantagens ao próprio aprendizado, também tem como objetivo trazer de volta a vida um jogo clássico (jogo da velha) com uma roupagem diferente, mais estratégia e novas regras. </br>
+ O projeto tem como objetivo elucidar de forma gráfica e lógica que a aprendizagem gamificada trás vantagens ao próprio aprendizado, também tem como objetivo trazer de volta a vida um jogo clássico (jogo da velha) com uma roupagem diferente, mais estratégica e com novas regras. </br>
  
  # Regras
  
